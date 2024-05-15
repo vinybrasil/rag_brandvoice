@@ -57,7 +57,7 @@ async def ask_question(question: Chat):
     return {"message": res}
 
 store = InMemoryStore()
-id_key = "doc_id"
+id_key="doc_id"
 
 embedding = FastEmbedEmbeddings()
 vectorstore = Chroma(

@@ -2,12 +2,9 @@ import logging
 from typing import Any
 
 from langchain_community.llms import Ollama
-from langchain_community.vectorstores import Chroma
-from langchain_core.documents import Document
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import RunnablePassthrough
-#from app.schemas import Element
 from pydantic import BaseModel
 from unstructured.partition.pdf import partition_pdf
 
@@ -62,7 +59,7 @@ def read_pdf(filename):
 
 def create_model(retriever):
     template = """Context: You're an brand specialist that will speak with the 
-    brand guidelines given. The guidelines are the following:
+    brand guidelines given. You speak as the brand voice. The guidelines are the following:
     {context}
     Question: {question}
     """
