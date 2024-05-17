@@ -46,6 +46,7 @@ A resposta para essa pergunta:
 - Utilizar uma LLM multimodal como a Mistral 
 - Testar outros prompts para tentar melhorar a resposta
 - Persisitir os vetores lidos no disco, separando cada voice em uma base de dados com seus textos e imagens
+- Testar outros modelos de embedding
 
 
 ### API 
@@ -64,5 +65,9 @@ A resposta para essa pergunta:
 
 ### Monitoramento 
 - Para checar a qualidade das respostas, pode-se usar um modelo maior (ex. ChatGPT4) via comparação
+- Construir um pipeline de verificação humana (human feedback)
 - Utilizar métricas como a [Perplexity](https://huggingface.co/spaces/evaluate-metric/perplexity) para avaliar o modelo 
 - Checar para prompt leakage e toxicidade nas respostas
+
+## Known issues
+- Chamadas de dentro do Docker para o Ollama não estão funcionando
