@@ -71,3 +71,4 @@ A resposta para essa pergunta:
 
 ## Known issues
 - Chamadas de dentro do Docker para o Ollama não estão funcionando
+- É lento por causa do backend local
