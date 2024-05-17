@@ -1,8 +1,8 @@
-fastapi>=0.111.0
-uvicorn>=0.29.0
-requests>=2.31.0
-unstructured[all-docs]>=0.11.8
+fastapi
+uvicorn
+requests
 chromadb
 fastembed
 langchain
 langchainhub
+unstructured[all-docs]

@@ -19,13 +19,11 @@ app = FastAPI()
 async def health_check():
     return {"message": "alive"}
 
-@app.get("/api/v1/download")
+@app.post("/api/v1/download")
 async def download_file(download_info: DownloadInfo):
     try:
         with TemporaryDirectory() as dirname:
             filename = str(pathlib.Path(dirname) / "input.pdf")
-            #print(filename)
-            # url = "https://a.slack-edge.com/a29fb/marketing/img/media-kit/Slack-Brand-Guidelines.pdf"
             response = requests.get(download_info.url, stream=True)
             response.raise_for_status()
 
@@ -33,9 +31,8 @@ async def download_file(download_info: DownloadInfo):
                 for chunk in response.iter_content(1024):
                     f.write(chunk)
 
-            filename = "/home/vinybrasil/random_projects/nuvia/rag_multimodal/data/Slack-Brand-Guidelines_voice.pdf"
 
-            texts, tables = read_pdf(filename)
+            texts, _ = read_pdf(filename)
 
             doc_ids = [str(uuid.uuid4()) for _ in texts]
             summary_texts = [
@@ -45,28 +42,31 @@ async def download_file(download_info: DownloadInfo):
             retriever.vectorstore.add_documents(summary_texts)
             retriever.docstore.mset(list(zip(doc_ids, texts))) 
             
-            return {"message": texts[0]}
+            return {"message": "download successful"}
 
     except requests.exceptions.RequestException as e:
         raise HTTPException(status_code=500, detail=f"Failed to download file: {str(e)}")
 
-@app.get("/api/v1/chat")
+@app.post("/api/v1/chat")
 async def ask_question(question: Chat):
     chain = create_model(retriever)
     res = chain.invoke(question.question)
     return {"message": res}
 
-store = InMemoryStore()
-id_key="doc_id"
+@app.on_event("startup")
+async def startup_event():
+    global retriever, id_key
+    store = InMemoryStore()
+    id_key="doc_id"
 
-embedding = FastEmbedEmbeddings()
-vectorstore = Chroma(
-    collection_name="summaries11",
-    embedding_function=embedding,
-)
+    embedding = FastEmbedEmbeddings()
+    vectorstore = Chroma(
+        collection_name="summaries11",
+        embedding_function=embedding,
+    )
 
-retriever = MultiVectorRetriever(
-    vectorstore=vectorstore,
-    docstore=store,
-    id_key=id_key,
-)
+    retriever = MultiVectorRetriever(
+        vectorstore=vectorstore,
+        docstore=store,
+        id_key=id_key,
+    )

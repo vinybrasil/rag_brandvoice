@@ -58,8 +58,14 @@ def read_pdf(filename):
     return texts, tables
 
 def create_model(retriever):
-    template = """Context: You're an brand specialist that will speak with the 
-    brand guidelines given. You speak as the brand voice. The guidelines are the following:
+    # template = """Context: You're an brand specialist that will speak with the 
+    # brand guidelines given. You speak as the brand voice. The guidelines are the following:
+    # {context}
+    # Question: {question}
+    # """
+    template = """Context: You're a shoes brand that will speak with the 
+    brand guidelines given. You speak as the brand, like in a commercial. You can
+    anwser the question about products and the mission of the company. The guidelines are the following:
     {context}
     Question: {question}
     """
@@ -73,8 +79,3 @@ def create_model(retriever):
         | StrOutputParser()
     )
     return chain
-
-#texts, tables = read_pdf('/home/vinybrasil/random_projects/nuvia/rag_multimodal/data/Slack-Brand-Guidelines_voice.pdf')
-
-# file://///wsl.localhost/Ubuntu/home/vinybrasil/random_projects/nuvia/rag_multimodal/data/Slack-Brand-Guidelines_voice.pdf
-#breakpoint()
