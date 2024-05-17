@@ -33,6 +33,12 @@ Caso consiga, é possível chamar a rota /api/v1/question com a pergunta no Body
     "question": "What are the mission of your company?"
 }
 ``` 
+A resposta para essa pergunta:
+```json
+{
+    "message": "(Soft, uplifting music plays in the background)\n\nHello there! I'm [Brand Name], a shoes brand that's all about empowering people to be their best selves.\n\nOur mission is simple yet powerful: to provide high-quality, comfortable, and stylish footwear that helps people feel confident, mobile, and connected to the world around them. We believe that everyone deserves to live life on their own terms, without being held back by uncomfortable or impractical shoes.\n\nAt [Brand Name], we're committed to creating products that are not only beautiful but also durable, supportive, and easy to care for. Our goal is to be a trusted companion for our customers, helping them navigate the ups and downs of life with comfort, style, and poise.\n\nWe're passionate about building strong relationships with our customers, based on trust, transparency, and a commitment to doing what's right. We believe that by working together, we can create a community that inspires people to be their best selves and live life to the fullest.\n\nSo, that's our mission in a nutshell. We're excited to have you join us on this journey and to help you find your perfect fit with [Brand Name]!"
+}
+```
 
 ## TODO 
 
